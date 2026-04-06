@@ -1,0 +1,391 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.1) 1px,
+    transparent 1px
+  );
+  background-size: 40px 40px;
+  animation: moveBackground 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes moveBackground {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(40px, 40px);
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: 500px;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.calculator {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 30px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.calculator:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+}
+
+.calculator-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 15px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.calculator-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-icon {
+  font-size: 24px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.brand-text {
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+.mode-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.mode-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(15deg);
+}
+
+.calculator-screen {
+  background: #f8f9fa;
+  padding: 30px 25px;
+  text-align: right;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.previous-operand {
+  color: #6c757d;
+  font-size: 18px;
+  min-height: 27px;
+  margin-bottom: 10px;
+}
+
+.current-operand {
+  color: #212529;
+  font-size: 48px;
+  font-weight: 600;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.current-operand::-webkit-scrollbar {
+  height: 4px;
+}
+
+.current-operand::-webkit-scrollbar-track {
+  background: #e9ecef;
+  border-radius: 10px;
+}
+
+.current-operand::-webkit-scrollbar-thumb {
+  background: #667eea;
+  border-radius: 10px;
+}
+
+.calculator-buttons {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  background: white;
+}
+
+.btn {
+  padding: 20px 5px;
+  font-size: 20px;
+  font-weight: 600;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  transition:
+    width 0.6s,
+    height 0.6s;
+}
+
+.btn:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+.btn-number {
+  background: #f8f9fa;
+  color: #212529;
+}
+
+.btn-number:hover {
+  background: #e9ecef;
+  transform: translateY(-2px);
+}
+
+.btn-operator {
+  background: #667eea;
+  color: white;
+}
+
+.btn-operator:hover {
+  background: #5a67d8;
+  transform: translateY(-2px);
+}
+
+.btn-function {
+  background: #e9ecef;
+  color: #6c757d;
+}
+
+.btn-function:hover {
+  background: #dee2e6;
+  transform: translateY(-2px);
+}
+
+.btn-equals {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  grid-column: span 1;
+}
+
+.btn-equals:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.zero {
+  grid-column: span 2;
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.calculator-footer {
+  background: #f8f9fa;
+  padding: 12px;
+  text-align: center;
+  border-top: 1px solid #e9ecef;
+}
+
+.footer-text {
+  color: #adb5bd;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+/* Dark Mode */
+body.dark-mode {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+}
+
+body.dark-mode .calculator {
+  background: rgba(30, 30, 40, 0.95);
+}
+
+body.dark-mode .calculator-screen {
+  background: #1e1e2e;
+}
+
+body.dark-mode .current-operand {
+  color: #e9ecef;
+}
+
+body.dark-mode .previous-operand {
+  color: #adb5bd;
+}
+
+body.dark-mode .btn-number {
+  background: #2d2d3a;
+  color: #e9ecef;
+}
+
+body.dark-mode .btn-number:hover {
+  background: #3a3a4a;
+}
+
+body.dark-mode .btn-function {
+  background: #2d2d3a;
+  color: #adb5bd;
+}
+
+body.dark-mode .btn-function:hover {
+  background: #3a3a4a;
+}
+
+body.dark-mode .calculator-footer {
+  background: #1e1e2e;
+  border-top-color: #2d2d3a;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  .calculator-buttons {
+    gap: 8px;
+    padding: 15px;
+  }
+
+  .btn {
+    padding: 15px 5px;
+    font-size: 18px;
+  }
+
+  .current-operand {
+    font-size: 36px;
+  }
+
+  .previous-operand {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 400px) {
+  .calculator-buttons {
+    gap: 6px;
+    padding: 12px;
+  }
+
+  .btn {
+    padding: 12px 5px;
+    font-size: 16px;
+  }
+
+  .current-operand {
+    font-size: 28px;
+  }
+}
+
+/* Animation for button press */
+@keyframes buttonPop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.btn-pop {
+  animation: buttonPop 0.2s ease;
+}
+
+/* Error shake animation */
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+.error-shake {
+  animation: shake 0.3s ease;
+}
